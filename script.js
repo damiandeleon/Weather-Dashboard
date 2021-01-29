@@ -1,12 +1,13 @@
 
 //create get query for the city search 
-citySearchInput = document.querySelector("#citySearchInput");
-cityFormEl = document.querySelector("#city-form")
-cityNameResults = document.querySelector(".cityNameResults");
-cityTempResults = document.querySelector(".cityTempResults");
-cityHumidityResults = document.querySelector(".cityHumidityResults");
-cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
-cityUVIndexResults = document.querySelector(".cityUVIndexResults");
+var citySearchInput = document.querySelector("#citySearchInput");
+var cityFormEl = document.querySelector("#city-form")
+var cityNameResults = document.querySelector(".cityNameResults");
+var cityTempResults = document.querySelector(".cityTempResults");
+var cityHumidityResults = document.querySelector(".cityHumidityResults");
+var cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
+var cityUVIndexResults = document.querySelector(".cityUVIndexResults");
+
 
 
 // create form submit handler to take out the whitespace and review what was entered. 
@@ -27,16 +28,14 @@ var formSubmitHandler = function (event) {
 
 // create function that will insert the city search into the API search dynamically
 var getCityWeather = function(city){
-    var cityUrl = "api.openweathermap.org/data/2.5/weather?q="+city+"&appid=d26847a740a8421604e3803e540bf50a"
-
-    console.log(cityUrl);
+    var cityUrl = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
 
     fetch(cityUrl)
         .then(function (response) {
             if(response.ok) {
                 response.json()
                 .then(function (data) {
-                    displayWeather(data.items)
+                    displayWeather(data)
                 });
             } else {
                 alert("Error: " + response.statusText);
@@ -46,7 +45,14 @@ var getCityWeather = function(city){
 //create function to actually display weather into a user friendly presentation from the API code.  **** Call the funciton displayWeather() *****
 
 function displayWeather(data) {
-    console.log(data);
+    // for (var i = 0; i < data.length; i++){
+        var temperature = data.main.temp;
+        cityTempResults.textContent = "Temperature: " +temperature +" ° F";
+        var humidity = data.main.humidity;
+        cityHumidityResults.textContent = "Humidity: "+humidity +"%";
+        windSpeed = data.wind.speed;
+        cityWindSpeedResults.textContent = "Wind Speed: " +windSpeed + " MPH";
+    // }
 };
 
 //create city search event listener

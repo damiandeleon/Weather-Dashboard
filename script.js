@@ -56,7 +56,7 @@ var zipFormSubmitHandler = function (event) {
       getZIPWeather(cityzip);
   
       cityNameResults.textContent = cityzip + " (make code to get today's date)";
-      citySearchInput.value = '';
+      zipCitySearchInput.value = '';
     } else {
       alert('Please enter a Zip Code before searching');
     }

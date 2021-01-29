@@ -1,0 +1,14 @@
+header{
+    background-color: #4b4949;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    padding: 10px;
+}
+
+.card-text{
+    color:lightslategrey
+}
+.list-group-item{
+    color:lightslategrey
+}

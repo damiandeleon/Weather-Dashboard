@@ -120,6 +120,8 @@ function getFiveDayForecast(cityname){
                         humiditytodayplus4.textContent = data.list[25].main.humidity;
                         temptodayplus5.textContent = data.list[33].main.temp_max;
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
+
+                        //add code to add pictures to class="imgtodayplus(x)" -----------
                     });
             } else {
                 alert("Error: " + response.statusText);

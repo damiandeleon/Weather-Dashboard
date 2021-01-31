@@ -20,6 +20,7 @@ var temptodayplus4 = document.querySelector("#temptodayplus4");
 var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
 var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
+var imgtodayplus2 = document.getElementById("imgtodayplus2");
 
 
 
@@ -122,6 +123,11 @@ function getFiveDayForecast(cityname){
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
 
                         //add code to add pictures to class="imgtodayplus(x)" -----------
+                        var imgEL = document.createElement("img");
+                        imgEL.setAttribute("width", "50px");
+                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/10d@2x.png");
+                        imgtodayplus2.append(imgEL);
+                        
                     });
             } else {
                 alert("Error: " + response.statusText);

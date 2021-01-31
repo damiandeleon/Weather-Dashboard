@@ -12,3 +12,15 @@ header{
 .list-group-item{
     color:lightslategrey
 }
+
+.DayBlock{
+    background-color:#3f89f8; 
+    color: whitesmoke; 
+    border-radius: 5px; 
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.fivedaycardfont {
+    font-size: 10px;
+}

@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
                         <p style="text-align: center">Search for a City</p>
@@ -26,12 +26,7 @@
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <hr>
-                        <!-- <p style="text-align: center">Search for a ZIP</p>
-                        <form class="d-flex" id="zip-form" style="padding-bottom: 8px;">
-                            <input class="form-control me-2" id="zipCitySearchInput" type="search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form> -->
-
+ 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Cras justo odio</li>
                             <li class="list-group-item">Dapibus ac facilisis in</li>
@@ -43,9 +38,9 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card mw-100">
-                    <div class="card-body w-100">
+                    <div class="card-body">
                         <h5 class="card-title cityNameResults">City Results</h5>
                         <p class="card-text cityTempResults">Temperature:</p>
                         <p class="card-text cityHumidityResults">Humidity:</p>
@@ -54,12 +49,57 @@
                     </div>
                 </div>
 
-                <div class="card w-auto">
-                    <div class="card-body w-100">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                        </p>
-                        <a href="#" class="btn btn-primary">Button</a>
+                <div class="row">
+                    <p style="margin-top: 15px;">5-Day Forecast</p>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body DayBlock">
+                                <h5 class="card-title" id="todayplus1" style="font-size: small;">8/16/2020</h5>
+                                <div id="imgtodayplus1"></div>
+                                <p class="fivedaycardfont">Temp: <span id="temptodayplus1"></span> ° F</p>
+                                <p class="fivedaycardfont">Temp: <span id="humiditytodayplus1"></span> %</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body DayBlock">
+                                <h5 class="card-title" id="todayplus2" style="font-size: small;">8/16/2020</h5>
+                                <div id="imgtodayplus2"></div>
+                                <p class="fivedaycardfont">Temp: <span id="temptodayplus2"></span> ° F</p>
+                                <p class="fivedaycardfont">Temp: <span id="humiditytodayplus2"></span> %</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body DayBlock">
+                                <h5 class="card-title" id="todayplus3" style="font-size: small;">8/16/2020</h5>
+                                <div id="imgtodayplus3"></div>
+                                <p class="fivedaycardfont">Temp: <span id="temptodayplus3"></span> ° F</p>
+                                <p class="fivedaycardfont">Temp: <span id="humiditytodayplus3"></span> %</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body DayBlock">
+                                <h5 class="card-title" id="todayplus4" style="font-size: small;">8/16/2020</h5>
+                                <div id="imgtodayplus4"></div>
+                                <p class="fivedaycardfont">Temp: <span id="temptodayplus4"></span> ° F</p>
+                                <p class="fivedaycardfont">Temp: <span id="humiditytodayplus4"></span> %</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="card">
+                            <div class="card-body DayBlock">
+                                <h5 class="card-title" id="todayplus5" style="font-size: small;">8/16/2020</h5>
+                                <div id="imgtodayplus5"></div>
+                                <p class="fivedaycardfont">Temp: <span id="temptodayplus5"></span> ° F</p>
+                                <p class="fivedaycardfont">Temp: <span id="humiditytodayplus5"></span> %</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

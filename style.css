@@ -18,9 +18,14 @@ header{
     color: whitesmoke; 
     border-radius: 5px; 
     padding-left: 6px;
-    padding-right: 6px;
+    padding-right: 0px;
 }
 
 .fivedaycardfont {
-    font-size: 10px;
+    font-size: 11px;
+}
+
+.card-title {
+    font-size: 15px;
+    text-emphasis:bold;
 }

@@ -36,11 +36,12 @@
             <div class="col-lg-9">
                 <div class="card mw-100">
                     <div class="card-body">
-                        <h5 class="card-title cityNameResults">City Results</h5>
+                        <h5 class="card-title cityNameResults">City: </h5>
+                        <img id="todayWeatherIcon">                        
                         <p class="card-text cityTempResults">Temperature:</p>
                         <p class="card-text cityHumidityResults">Humidity:</p>
                         <p class="card-text cityWindSpeedResults">Wind Speed:</p>
-                        <p class="card-text cityUVIndexResults">UV Index: <span class="UVreader"></span></span></p>
+                        <p class="card-text cityUVIndexResults">UV Index: <span class="UVreader"></span></p>
                     </div>
                 </div>
 
@@ -49,7 +50,7 @@
                     <div class="col-lg-2">
                         <div class="card">
                             <div class="card-body DayBlock">
-                                <h5 class="card-title" id="todayplus1">8/16/2020</h5>
+                                <h5 class="card-title" id="todayplus1"></h5>
                                 <img id="imgtodayplus1"></img>
                                 <p class="fivedaycardfont">Temp: <span id="temptodayplus1"></span> ° F</p>
                                 <p class="fivedaycardfont">Humidity: <span id="humiditytodayplus1"></span> %</p>
@@ -100,7 +101,7 @@
             </div>
 
 
-
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
             <script src="./script.js"></script>
 </body>
 

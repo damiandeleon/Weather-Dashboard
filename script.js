@@ -21,12 +21,21 @@ var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
 var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
 var listGroup = document.querySelector(".cityNameSearchItem");
-
+var itemPlace1 = document.querySelector("#itemPlace1")
+var itemPlace2 = document.querySelector("#itemPlace2")
+var itemPlace3 = document.querySelector("#itemPlace3")
+var itemPlace4 = document.querySelector("#itemPlace4")
+var itemPlace5 = document.querySelector("#itemPlace5")
+var cityList = [];
 
 // create form submit handler to take out the whitespace and review what was entered. 
+
+function renderLocalStorage(){
+console.log("second city List Run----", cityList);
+}
+
 var cityFormSubmitHandler = function (event) {
     event.preventDefault();
-
     var cityname = citySearchInput.value.trim();
 
     if (cityname) {
@@ -35,20 +44,14 @@ var cityFormSubmitHandler = function (event) {
 
         cityNameResults.textContent = cityname + "  (" + moment().format('l')+")"; 
         citySearchInput.value = '';
+        cityList.value = cityname;
     } else {
         alert('Please enter a city name before searching');
     }
-    saveLocalStorage(cityname);    
+     
 };
 
-function saveLocalStorage(cityname) {
-    // localStorage.setItem("cityNameSearched", cityname);
-    // var liEL = document.createElement("li");
-    // liEL.setAttribute("class", "list-group-item");
-    // liEL.textContent = cityname;
-    // listGroup.appendChild(liEL, cityname);
-    // renderLocalStorate();
-}
+
 // create function that will insert the city search into the API search dynamically
 var getCityWeather = function (city) {
     var cityUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
@@ -71,9 +74,10 @@ var getCityWeather = function (city) {
 
 function displayWeather(data) {
     var weatherIconCode = data.weather[0].icon;
-    console.log(weatherIconCode);
-    todayWeatherIcon.setAttribute("width", "50px");
-    todayWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode+"@2x.png");
+    var addIcon = document.createElement("img");
+    addIcon.setAttribute("width", "50px");
+    addIcon.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode+"@2x.png");
+    cityNameResults.append(addIcon);
     var temperature = data.main.temp;
     cityTempResults.textContent = "Temperature: " + temperature + " ° F";
     var humidity = data.main.humidity;
@@ -123,7 +127,6 @@ function getFiveDayForecast(cityname){
                         if(todayplus1.imgEL){
                             todayplus1.removeChild(imgEL);
                         }
-                        displayFiveDayForecast(data);
                         todayplus1.textContent = moment().add(1, "days").format('l');  
                         temptodayplus1.textContent = data.list[1].main.temp_max;
                         humiditytodayplus1.textContent = data.list[1].main.humidity;
@@ -168,10 +171,6 @@ function getFiveDayForecast(cityname){
                 alert("Error: " + response.statusText);
             }
         });
-}
-
-function displayFiveDayForecast(data){
-
 }
 
 

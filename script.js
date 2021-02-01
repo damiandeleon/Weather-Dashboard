@@ -21,6 +21,7 @@ var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
 var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
 var imgtodayplus2 = document.getElementById("imgtodayplus2");
+var listGroup = document.querySelector(".cityNameSearchItem");
 
 
 
@@ -40,6 +41,12 @@ var cityFormSubmitHandler = function (event) {
     } else {
         alert('Please enter a city name before searching');
     }
+    localStorage.setItem("cityNameSearchItem", cityname);
+    var liEL = document.createElement("li");
+    liEL.setAttribute("class", "list-group-item");
+    liEL.textContent = cityname;
+    listGroup.appendChild(liEL, cityname);
+    
 };
 
 // create function that will insert the city search into the API search dynamically
@@ -175,4 +182,3 @@ function displayFiveDayForecast(data){
 
 //create city search event listener
 cityFormEl.addEventListener('submit', cityFormSubmitHandler);
-// zipFormEl.addEventListener('submit', zipFormSubmitHandler);

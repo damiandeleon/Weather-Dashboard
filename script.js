@@ -20,7 +20,7 @@ var temptodayplus4 = document.querySelector("#temptodayplus4");
 var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
 var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
-var imgtodayplus2 = document.getElementById("imgtodayplus2");
+var imgtodayplus1 = document.querySelector("#imgtodayplus1");
 var listGroup = document.querySelector(".cityNameSearchItem");
 
 
@@ -41,14 +41,17 @@ var cityFormSubmitHandler = function (event) {
     } else {
         alert('Please enter a city name before searching');
     }
-    localStorage.setItem("cityNameSearchItem", cityname);
-    var liEL = document.createElement("li");
-    liEL.setAttribute("class", "list-group-item");
-    liEL.textContent = cityname;
-    listGroup.appendChild(liEL, cityname);
-    
+    saveLocalStorage(cityname);    
 };
 
+function saveLocalStorage(cityname) {
+    // localStorage.setItem("cityNameSearched", cityname);
+    // var liEL = document.createElement("li");
+    // liEL.setAttribute("class", "list-group-item");
+    // liEL.textContent = cityname;
+    // listGroup.appendChild(liEL, cityname);
+    // renderLocalStorate();
+}
 // create function that will insert the city search into the API search dynamically
 var getCityWeather = function (city) {
     var cityUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
@@ -117,52 +120,39 @@ function getFiveDayForecast(cityname){
             if (response.ok) {
                 response.json()
                     .then(function (data) {
+                        if(todayplus1.imgEL){
+                            todayplus1.removeChild(imgEL);
+                        }
                         displayFiveDayForecast(data);
-                        console.log("five day forecast------", data);
                         temptodayplus1.textContent = data.list[1].main.temp_max;
                         humiditytodayplus1.textContent = data.list[1].main.humidity;
                         var weatherIconCode1=data.list[1].weather[0].icon;
-                        console.log("Icon Code ----", weatherIconCode1);
-                        var imgEL = document.createElement("img");
-                        imgEL.setAttribute("width", "50px");
-                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode1+"@2x.png");
-                        imgtodayplus1.append(imgEL);
+                        imgtodayplus1.setAttribute("width", "50px");
+                        imgtodayplus1.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode1+"@2x.png");                        
                         
                         temptodayplus2.textContent = data.list[9].main.temp_max;
                         humiditytodayplus2.textContent = data.list[9].main.humidity;
                         var weatherIconCode2=data.list[9].weather[0].icon;
-                        console.log("Icon Code ----", weatherIconCode1);
-                        var imgEL = document.createElement("img");
-                        imgEL.setAttribute("width", "50px");
-                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode2+"@2x.png");
-                        imgtodayplus2.append(imgEL);
+                        imgtodayplus2.setAttribute("width", "50px");
+                        imgtodayplus2.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode2+"@2x.png");
 
                         temptodayplus3.textContent = data.list[17].main.temp_max;
                         humiditytodayplus3.textContent = data.list[17].main.humidity;
                         var weatherIconCode3=data.list[17].weather[0].icon;
-                        console.log("Icon Code ----", weatherIconCode1);
-                        var imgEL = document.createElement("img");
-                        imgEL.setAttribute("width", "50px");
-                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode3+"@2x.png");
-                        imgtodayplus3.append(imgEL);
+                        imgtodayplus3.setAttribute("width", "50px");
+                        imgtodayplus3.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode3+"@2x.png");
 
                         temptodayplus4.textContent = data.list[25].main.temp_max;
                         humiditytodayplus4.textContent = data.list[25].main.humidity;
                         var weatherIconCode4=data.list[25].weather[0].icon;
-                        console.log("Icon Code ----", weatherIconCode1);
-                        var imgEL = document.createElement("img");
-                        imgEL.setAttribute("width", "50px");
-                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode4+"@2x.png");
-                        imgtodayplus4.append(imgEL);
+                        imgtodayplus4.setAttribute("width", "50px");
+                        imgtodayplus4.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode4+"@2x.png");
 
                         temptodayplus5.textContent = data.list[33].main.temp_max;
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
                         var weatherIconCode5=data.list[33].weather[0].icon;
-                        console.log("Icon Code ----", weatherIconCode1);
-                        var imgEL = document.createElement("img");
-                        imgEL.setAttribute("width", "50px");
-                        imgEL.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode5+"@2x.png");
-                        imgtodayplus5.append(imgEL);
+                        imgtodayplus5.setAttribute("width", "50px");
+                        imgtodayplus5.setAttribute("src", "http://openweathermap.org/img/wn/"+weatherIconCode5+"@2x.png");
 
                         //add code to add pictures to class="imgtodayplus(x)" -----------
 

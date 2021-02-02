@@ -32,144 +32,24 @@ var cityList = "0"
 renderLocalStorage();
 function renderLocalStorage() {
     function pullLastSearch (cityname){
-        if (cityname) {
             getCityWeather(cityname);
             getFiveDayForecast(cityname);
     
             cityNameResults.textContent = cityname + "  (" + moment().format('l') + ")";
             citySearchInput.value = '';
             cityList.value = cityname;
-        }
+
     }
-    var renderedCity1 = localStorage.getItem("1");
-    if (renderedCity1) {
+    var renderedCity15 = localStorage.getItem("15");
+    if (renderedCity15) {
         var liEl = document.createElement("li");
         liEl.setAttribute("class", "list-group-item");
         liEl.setAttribute("id", "itemPlace");
         liEl.textContent = renderedCity1;
         cityNameSearchItem.appendChild(liEl);
         pullLastSearch(renderedCity1);
-    } else { return };
-
-    var renderedCity2 = localStorage.getItem("2");
-    if (renderedCity2) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity2;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity2);
-    } else { return };
-
-    var renderedCity3 = localStorage.getItem("3");
-    if (renderedCity3) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity3;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity3);
-    } else { return };
-
-    var renderedCity4 = localStorage.getItem("4");
-    if (renderedCity4) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity4;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity4);
-    } else { return };
-
-    var renderedCity5 = localStorage.getItem("5");
-    if (renderedCity5) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity5;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity5);
-    } else { return };
-
-    var renderedCity6 = localStorage.getItem("6");
-    if (renderedCity6) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity6;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity6);
-    } else { return };
-
-    var renderedCity7 = localStorage.getItem("7");
-    if (renderedCity7) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity7;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity7);
-    } else { return };
-
-    var renderedCity8 = localStorage.getItem("8");
-    if (renderedCity8) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity8;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity8);
-    } else { return };
-
-    var renderedCity9 = localStorage.getItem("9");
-    if (renderedCity9) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity9;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity9);
-    } else { return };
-
-    var renderedCity10 = localStorage.getItem("10");
-    if (renderedCity10) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity10;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity10);
-    } else { return };
-
-    var renderedCity11 = localStorage.getItem("11");
-    if (renderedCity11) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity11;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity11);
-    } else { return };
-
-    var renderedCity12 = localStorage.getItem("12");
-    if (renderedCity12) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity12;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity12);
-    } else { return };
-
-    var renderedCity13 = localStorage.getItem("13");
-    if (renderedCity13) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity13;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity13);
-    } else { return };
+        return
+    }
 
     var renderedCity14 = localStorage.getItem("14");
     if (renderedCity14) {
@@ -179,17 +59,157 @@ function renderLocalStorage() {
         liEl.textContent = renderedCity14;
         cityNameSearchItem.appendChild(liEl);
         pullLastSearch(renderedCity14);
-    } else { return };
+        return
+    } 
 
-    var renderedCity15 = localStorage.getItem("15");
-    if (renderedCity15) {
+    var renderedCity13 = localStorage.getItem("13");
+    if (renderedCity13) {
         var liEl = document.createElement("li");
         liEl.setAttribute("class", "list-group-item");
         liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity15;
+        liEl.textContent = renderedCity13;
         cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity15);
-    } else { return };
+        pullLastSearch(renderedCity13);
+        return
+    } 
+
+    var renderedCity12 = localStorage.getItem("12");
+    if (renderedCity12) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity12;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity12);
+        return
+    } 
+
+    var renderedCity11 = localStorage.getItem("11");
+    if (renderedCity11) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity11;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity11);
+        return
+    } 
+
+    var renderedCity10 = localStorage.getItem("10");
+    if (renderedCity10) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity10;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity10);
+        return
+    } 
+
+    var renderedCity9 = localStorage.getItem("9");
+    if (renderedCity9) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity9;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity9);
+        return
+    } 
+    
+    var renderedCity8 = localStorage.getItem("8");
+    if (renderedCity8) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity8;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity8);
+        return
+    } 
+
+    var renderedCity7 = localStorage.getItem("7");
+    if (renderedCity7) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity7;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity7);
+        return
+    } 
+
+    
+
+    var renderedCity6 = localStorage.getItem("6");
+    if (renderedCity6) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity6;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity6);
+        return
+    } 
+
+ 
+    var renderedCity5 = localStorage.getItem("5");
+    if (renderedCity5) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity5;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity5);
+        return
+    } 
+
+
+    var renderedCity4 = localStorage.getItem("4");
+    if (renderedCity4) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity4;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity4);
+        return
+    } 
+
+ 
+    var renderedCity3 = localStorage.getItem("3");
+    if (renderedCity3) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity3;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity3);
+        return
+    } 
+
+
+    var renderedCity2 = localStorage.getItem("2");
+    if (renderedCity2) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity2;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity2);
+        return
+    }
+
+
+    var renderedCity1 = localStorage.getItem("1");
+    if (renderedCity1) {
+        var liEl = document.createElement("li");
+        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("id", "itemPlace");
+        liEl.textContent = renderedCity1;
+        cityNameSearchItem.appendChild(liEl);
+        pullLastSearch(renderedCity1);
+    } 
 
 
 }

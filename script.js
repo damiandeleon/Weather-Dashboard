@@ -26,191 +26,41 @@ var itemPlace2 = document.querySelector("#itemPlace2")
 var itemPlace3 = document.querySelector("#itemPlace3")
 var itemPlace4 = document.querySelector("#itemPlace4")
 var itemPlace5 = document.querySelector("#itemPlace5")
-var cityList = "0"
+var lastStorageIndex = localStorage.length;
+var cityList = lastStorageIndex;
 
 // create form submit handler to take out the whitespace and review what was entered. 
 renderLocalStorage();
 function renderLocalStorage() {
-    function pullLastSearch (cityname){
-            getCityWeather(cityname);
-            getFiveDayForecast(cityname);
-    
-            cityNameResults.textContent = cityname + "  (" + moment().format('l') + ")";
-            citySearchInput.value = '';
-            cityList.value = cityname;
 
+    console.log(lastStorageIndex);
+    if(lastStorageIndex!=0){
+        var lastCity = localStorage.getItem(lastStorageIndex)
+  
+        pullLastSearch(lastCity);
+        //call the last index of the local storage
+        for(let i = 1; i <= lastStorageIndex; i++){
+            var city = localStorage.getItem(i);
+            setLastSearchEl(city)
+        }
     }
-    var renderedCity15 = localStorage.getItem("15");
-    if (renderedCity15) {
-        var liEl = document.createElement("li");
+}
+
+function setLastSearchEl(city){
+    var liEl = document.createElement("li");
         liEl.setAttribute("class", "list-group-item");
         liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity1;
+        liEl.textContent = city;
         cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity1);
-        return
-    }
+}
 
-    var renderedCity14 = localStorage.getItem("14");
-    if (renderedCity14) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity14;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity14);
-        return
-    } 
+function pullLastSearch (lastCity){
+    getCityWeather(lastCity);
+    getFiveDayForecast(lastCity);
 
-    var renderedCity13 = localStorage.getItem("13");
-    if (renderedCity13) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity13;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity13);
-        return
-    } 
-
-    var renderedCity12 = localStorage.getItem("12");
-    if (renderedCity12) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity12;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity12);
-        return
-    } 
-
-    var renderedCity11 = localStorage.getItem("11");
-    if (renderedCity11) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity11;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity11);
-        return
-    } 
-
-    var renderedCity10 = localStorage.getItem("10");
-    if (renderedCity10) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity10;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity10);
-        return
-    } 
-
-    var renderedCity9 = localStorage.getItem("9");
-    if (renderedCity9) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity9;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity9);
-        return
-    } 
-    
-    var renderedCity8 = localStorage.getItem("8");
-    if (renderedCity8) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity8;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity8);
-        return
-    } 
-
-    var renderedCity7 = localStorage.getItem("7");
-    if (renderedCity7) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity7;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity7);
-        return
-    } 
-
-    
-
-    var renderedCity6 = localStorage.getItem("6");
-    if (renderedCity6) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity6;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity6);
-        return
-    } 
-
- 
-    var renderedCity5 = localStorage.getItem("5");
-    if (renderedCity5) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity5;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity5);
-        return
-    } 
-
-
-    var renderedCity4 = localStorage.getItem("4");
-    if (renderedCity4) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity4;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity4);
-        return
-    } 
-
- 
-    var renderedCity3 = localStorage.getItem("3");
-    if (renderedCity3) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity3;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity3);
-        return
-    } 
-
-
-    var renderedCity2 = localStorage.getItem("2");
-    if (renderedCity2) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity2;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity2);
-        return
-    }
-
-
-    var renderedCity1 = localStorage.getItem("1");
-    if (renderedCity1) {
-        var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
-        liEl.textContent = renderedCity1;
-        cityNameSearchItem.appendChild(liEl);
-        pullLastSearch(renderedCity1);
-    } 
-
+    cityNameResults.textContent = lastCity + "  (" + moment().format('l') + ")";
+    citySearchInput.value = '';
+    cityList.value = lastCity;
 
 }
 
@@ -370,3 +220,4 @@ function getFiveDayForecast(cityname) {
 
 //create city search event listener
 cityFormEl.addEventListener('submit', cityFormSubmitHandler);
+

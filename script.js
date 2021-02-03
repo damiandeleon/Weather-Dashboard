@@ -39,8 +39,7 @@ function renderLocalStorage() {
 
 function setLastSearchEl(city){
     var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
-        liEl.setAttribute("id", "itemPlace");
+        liEl.setAttribute("class", "list-group-item itemPlace");
         liEl.textContent = city;
         cityNameSearchItem.appendChild(liEl);
 }
@@ -60,8 +59,7 @@ function saveLocalStorage(city) {
     cityList++;
     localStorage.setItem(cityList, city);
     var liEl = document.createElement("li");
-    liEl.setAttribute("class", "list-group-item");
-    liEl.setAttribute("id", "itemPlace");
+    liEl.setAttribute("class", "list-group-item itemPlace");
     liEl.textContent = city;
     cityNameSearchItem.appendChild(liEl);
     return cityList
@@ -158,13 +156,14 @@ function getFiveDayForecast(cityname) {
             if (response.ok) {
                 response.json()
                     .then(function (data) {
+                        console.log(data);
                         if (todayplus1.imgEL) {
                             todayplus1.removeChild(imgEL);
                         }
                         todayplus1.textContent = moment().add(1, "days").format('l');
                         temptodayplus1.textContent = data.list[1].main.temp_max;
                         humiditytodayplus1.textContent = data.list[1].main.humidity;
-                        var weatherIconCode1 = data.list[1].weather[0].icon;
+                        var weatherIconCode1 = data.list[6].weather[0].icon;
                         //add code to add pictures to class="imgtodayplus(x)" -----------
                         imgtodayplus1.setAttribute("width", "50px");
                         imgtodayplus1.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode1 + "@2x.png");
@@ -172,7 +171,7 @@ function getFiveDayForecast(cityname) {
                         todayplus2.textContent = moment().add(2, "days").format('l');
                         temptodayplus2.textContent = data.list[9].main.temp_max;
                         humiditytodayplus2.textContent = data.list[9].main.humidity;
-                        var weatherIconCode2 = data.list[9].weather[0].icon;
+                        var weatherIconCode2 = data.list[14].weather[0].icon;
                         //add code to add pictures to class="imgtodayplus(x)" -----------
                         imgtodayplus2.setAttribute("width", "50px");
                         imgtodayplus2.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode2 + "@2x.png");
@@ -181,14 +180,14 @@ function getFiveDayForecast(cityname) {
                         temptodayplus3.textContent = data.list[17].main.temp_max;
                         humiditytodayplus3.textContent = data.list[17].main.humidity;
                         //add code to add pictures to class="imgtodayplus(x)" -----------
-                        var weatherIconCode3 = data.list[17].weather[0].icon;
+                        var weatherIconCode3 = data.list[22].weather[0].icon;
                         imgtodayplus3.setAttribute("width", "50px");
                         imgtodayplus3.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode3 + "@2x.png");
 
                         todayplus4.textContent = moment().add(4, "days").format('l');
                         temptodayplus4.textContent = data.list[25].main.temp_max;
                         humiditytodayplus4.textContent = data.list[25].main.humidity;
-                        var weatherIconCode4 = data.list[25].weather[0].icon;
+                        var weatherIconCode4 = data.list[30].weather[0].icon;
                         //add code to add pictures to class="imgtodayplus(x)" -----------
                         imgtodayplus4.setAttribute("width", "50px");
                         imgtodayplus4.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode4 + "@2x.png");
@@ -196,7 +195,7 @@ function getFiveDayForecast(cityname) {
                         todayplus5.textContent = moment().add(5, "days").format('l');
                         temptodayplus5.textContent = data.list[33].main.temp_max;
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
-                        var weatherIconCode5 = data.list[33].weather[0].icon;
+                        var weatherIconCode5 = data.list[38].weather[0].icon;
                         //add code to add pictures to class="imgtodayplus(x)" -----------
                         imgtodayplus5.setAttribute("width", "50px");
                         imgtodayplus5.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode5 + "@2x.png");

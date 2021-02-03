@@ -7,8 +7,6 @@ var cityTempResults = document.querySelector(".cityTempResults");
 var cityHumidityResults = document.querySelector(".cityHumidityResults");
 var cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
 var cityUVIndexResults = document.querySelector(".cityUVIndexResults");
-var zipFormEl = document.querySelector("#zip-form");
-var zipCitySearchInput = document.querySelector("#zipCitySearchInput");
 var UVReader = document.querySelector(".UVreader");
 var temptodayplus1 = document.querySelector("#temptodayplus1");
 var humiditytodayplus1 = document.querySelector("#humiditytodayplus1");
@@ -21,19 +19,12 @@ var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
 var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
 var cityNameSearchItem = document.querySelector(".cityNameSearchItem");
-var itemPlace1 = document.querySelector("#itemPlace1")
-var itemPlace2 = document.querySelector("#itemPlace2")
-var itemPlace3 = document.querySelector("#itemPlace3")
-var itemPlace4 = document.querySelector("#itemPlace4")
-var itemPlace5 = document.querySelector("#itemPlace5")
 var lastStorageIndex = localStorage.length;
 var cityList = lastStorageIndex;
 
 // create form submit handler to take out the whitespace and review what was entered. 
 renderLocalStorage();
 function renderLocalStorage() {
-
-    console.log(lastStorageIndex);
     if(lastStorageIndex!=0){
         var lastCity = localStorage.getItem(lastStorageIndex)
   
@@ -43,7 +34,7 @@ function renderLocalStorage() {
             var city = localStorage.getItem(i);
             setLastSearchEl(city)
         }
-    }
+    } else {alert("Welcome to your Weather Dashboard.  Start by entering your first search!")}
 }
 
 function setLastSearchEl(city){

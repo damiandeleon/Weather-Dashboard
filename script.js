@@ -156,7 +156,6 @@ function getFiveDayForecast(cityname) {
             if (response.ok) {
                 response.json()
                     .then(function (data) {
-                        console.log(data);
                         if (todayplus1.imgEL) {
                             todayplus1.removeChild(imgEL);
                         }

@@ -1,6 +1,9 @@
 # Weather-Dashboard
 This tool is used to pull the local forecast plus a five day foreast by city for a user.  It derives the data from the Open Weather API site. 
 
+## To Launch
+Click: [Launch Weather Dashboard](https://damiandeleon.github.io/Weather-Dashboard/)
+
 ## Search Function
 
 The user must enter their city of choice in the search parameter.  

@@ -1,3 +1,10 @@
+
+html,body{
+    background: rgb(253,242,45);
+    background: linear-gradient(180deg, rgba(253,242,45,1) 0%, rgba(254,251,194,1) 47%, rgba(255,255,255,1) 100%);
+    background-repeat: no-repeat;
+}
+
 header{
     background-color: #4b4949;
     color: white;
@@ -6,9 +13,21 @@ header{
     padding: 10px;
 }
 
-.card-text{
-    color:lightslategrey
+.card.mw-100{
+    background: rgb(224,234,255);
+    background: radial-gradient(circle, rgba(224,234,255,1) 0%, rgba(185,255,255,1) 100%);
+    border: gray solid 4px;
+    border-radius: 15px;
 }
+
+.card-text{
+    color:black
+}
+
+.col-lg-9{
+    text-align: center;
+}
+
 .list-group-item{
     color:lightslategrey
 }
@@ -19,6 +38,10 @@ header{
     border-radius: 5px; 
     padding-left: 6px;
     padding-right: 0px;
+}
+
+.fiveDayBlock{
+    display:inline-flexbox;
 }
 
 .fivedaycardfont {

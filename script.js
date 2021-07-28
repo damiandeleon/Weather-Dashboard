@@ -22,14 +22,16 @@ var cityNameSearchItem = document.querySelector(".cityNameSearchItem");
 var lastStorageIndex = localStorage.length;
 var cityList = lastStorageIndex;
 
-// create form submit handler to take out the whitespace and review what was entered. 
+//create a function that renders the last city previously searched and saved in local Storage.  If local storage is empty, Welcome the user and prompt to start by entering in their first search.  The variable "lastStorageIndex" will be a number equal to the length of the local storage (if three cities have been previously searched, then the value will be 3, if six cities then it will be 6, and so on...)
 renderLocalStorage();
 function renderLocalStorage() {
+    //if the last local storage index is not empty, then get the item in local storage
     if(lastStorageIndex!=0){
+        //create a variable called lastCity to assign to the last indexed city in local storage
         var lastCity = localStorage.getItem(lastStorageIndex)
-  
+        //funciton to pull the last searched city
         pullLastSearch(lastCity);
-        //call the last index of the local storage
+        //call the last index of the local storage, which will be highest indexed number in the local storage.  For loop will cycle through the index until it reaches the number currently assigned to the variable "lastSotrageIndex", which equals the length of the local storage (see line 22).
         for(let i = 1; i <= lastStorageIndex; i++){
             var city = localStorage.getItem(i);
             setLastSearchEl(city)
@@ -48,9 +50,15 @@ function pullLastSearch (lastCity){
     getCityWeather(lastCity);
     getFiveDayForecast(lastCity);
 
+    //populate the search results display section with the class of cityNameResults with the following information...
+    //...the last searched city name (and the current date) pulled from moment (see the script seciton at the bottom of the HTML file)
     cityNameResults.textContent = lastCity + "  (" + moment().format('l') + ")";
+
+    //...reset the field with the id "citySearchInput" back to empty
     citySearchInput.value = '';
-    cityList.value = lastCity;
+
+    //...set the page section with the
+    // cityList.value = lastCity;
 
 }
 
@@ -64,14 +72,19 @@ function saveLocalStorage(city) {
     cityNameSearchItem.appendChild(liEl);
     return cityList
 }
-
+// create form submit handler function
 var cityFormSubmitHandler = function (event) {
+    // prevent default so the page doesn't reload the page
     event.preventDefault();
+    //assign a variable named cityname to the value of the event search, and trim out the whitespace.
     var cityname = citySearchInput.value.trim();
-
+    //if the event has a search data to pull (assinged to the "cityname" variable), run three functions 1. Get the City Weather, 2. Get the five day forecast for the searched city. 3. and save the searched city in local storage.  If the search is empty then alert the user to please enter a city before searching.
     if (cityname) {
+        //run getCityWeather function with the cityname search paramter
         getCityWeather(cityname);
+        //run getFiveDayForecast function with the cityname search paramter
         getFiveDayForecast(cityname);
+        //run saveLocalStorage function with the cityname search paramter
         saveLocalStorage(cityname);
 
         cityNameResults.textContent = cityname + "  (" + moment().format('l') + ")";
@@ -86,14 +99,21 @@ var cityFormSubmitHandler = function (event) {
 
 // create function that will insert the city search into the API search dynamically
 function getCityWeather(city) {
+    //cityURL will be the search parameters fed to the open weather API using the serach parameter format required by the API documents page.  the searched city will be inserted into the search parameters in the required place in the url
     var cityUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
-
+    //using the fetch command (Fetch API sets up a request to capture data from a url and will then use the .then promise to do something with that data) pull the searched data "cityUrl" from the open weather api.
     fetch(cityUrl)
+        //then grab the response
         .then(function (response) {
+            //if the response is okay with no issues
             if (response.ok) {
+                //convert the response to json so javascript can use it
                 response.json()
+                    //then fun the following two functionw with the data received in the response
                     .then(function (data) {
+                        //launch the displayWeather function with the data parameters
                         displayWeather(data)
+                        //launch the getUVIndex function with the data parameters
                         getUVIndex(data);
                     });
             } else {

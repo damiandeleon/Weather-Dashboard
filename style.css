@@ -3,6 +3,7 @@ html,body{
     background: rgb(253,242,45);
     background: linear-gradient(180deg, rgba(253,242,45,1) 0%, rgba(254,251,194,1) 47%, rgba(255,255,255,1) 100%);
     background-repeat: no-repeat;
+    padding-bottom: 25px;
 }
 
 header{
@@ -13,9 +14,20 @@ header{
     padding: 10px;
 }
 
+footer{
+    position:fixed;
+    background-color: #4b4949;
+    color: white;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+
+}
+
 .card.mw-100{
+    margin-top: 15px;
     background: rgb(224,234,255);
-    background: radial-gradient(circle, rgba(224,234,255,1) 0%, rgba(185,255,255,1) 100%);
+    background: radial-gradient(circle, rgb(173, 190, 225) 0%, rgba(185,255,255,1) 100%);
     border: gray solid 4px;
     border-radius: 15px;
 }
@@ -45,10 +57,10 @@ header{
 }
 
 .fivedaycardfont {
-    font-size: 11px;
+    font-size: 18px;
 }
 
 .card-title {
-    font-size: 15px;
+    font-size: 25px;
     text-emphasis:bold;
 }

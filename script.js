@@ -26,25 +26,37 @@ var cityList = lastStorageIndex;
 //create a function that renders the last city previously searched and saved in local Storage.  If local storage is empty, Welcome the user and prompt to start by entering in their first search.  The variable "lastStorageIndex" will be a number equal to the length of the local storage (if three cities have been previously searched, then the value will be 3, if six cities then it will be 6, and so on...)
 renderLocalStorage();
 function renderLocalStorage() {
-    //if the last local storage index is not empty, then get the item in local storage
+    //if the last local storage index is not empty, then get the item in local storage.  If it is empty it will alert with a greeting (see line 41)
     if(lastStorageIndex!=0){
         //create a variable called lastCity to assign to the last indexed city in local storage
         var lastCity = localStorage.getItem(lastStorageIndex)
         //funciton to pull the last searched city
         pullLastSearch(lastCity);
-        //call the last index of the local storage, which will be highest indexed number in the local storage.  For loop will cycle through the index until it reaches the number currently assigned to the variable "lastSotrageIndex", which equals the length of the local storage (see line 22).
+        //call the last index of the local storage, which will be highest indexed number in the local storage.  For loop will cycle through the index until it reaches the number currently assigned to the variable "lastSotrageIndex", which equals the length of the local storage (see line 16).
         for(let i = 1; i <= lastStorageIndex; i++){
             var city = localStorage.getItem(i);
+            //launch setLastSearchEl to display the listing of previously searched cities from local storage
             setLastSearchEl(city)
         }
     } else {alert("Welcome to your Weather Dashboard.  Start by entering your first search!")}
 }
 
+//display the listing of previously search cities from local storage (parameter of "city" is fed from the "setLastSearchEl(city) function on line 39")
 function setLastSearchEl(city){
+    //create a new line element called "liEl"
     var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item itemPlace");
-        liEl.textContent = city;
-        cityNameSearchItem.appendChild(liEl);
+    //set liEl attribute to add a class called "list-group-item itemPlace"
+    liEl.setAttribute("class", "list-group-item itemPlace");
+    //set liEl attribute to add a value with the city's name.  This will be used to tell the search button what to look for from the previous searched list.
+    liEl.setAttribute("value", city);
+    //add the name of city parameter as text to the line item
+    liEl.textContent = city;
+    //add event listener that when clicked, will pull for the city assigned to the element
+    liEl.addEventListener("click", function() {
+        pullLastSearch(city)
+    })
+    //Append the newly created line Element to the element with the class of "cityNameSearchItem"
+    cityNameSearchItem.appendChild(liEl);
 }
 
 function pullLastSearch (lastCity){
@@ -78,6 +90,11 @@ function saveLocalStorage(city) {
     liEl.setAttribute("value", city);
     //add the name of city parameter as text to the line item
     liEl.textContent = city;
+    //add event listener that when clicked, will pull for the city assigned to the element
+    liEl.addEventListener("click", function() {
+        pullLastSearch(city)
+    })
+
     //Append the newly created line Element to the element with the class of "cityNameSearchItem"
     cityNameSearchItem.appendChild(liEl);
     //return the new cityList
@@ -146,6 +163,7 @@ function displayWeather(data) {
     addIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode + "@2x.png");
     //in the section with class of "cityNameResults", append the newly created icon
     cityNameResults.append(addIcon);
+
     //create a variable to capture the current temp from the API data
     var temperature = data.main.temp;
     //in the section with the class of "cityNameResults", add text to dynamically display the current temp pulled from the data.
@@ -160,32 +178,55 @@ function displayWeather(data) {
     cityWindSpeedResults.textContent = "Wind Speed: " + windSpeed + " MPH";
 };
 
+//create a function to capture the UV index from the API response package in the "getCityWeather" function
 function getUVIndex(data1) {
+    
+    //to ensure the accurate UV index is pulled, get the coordinates of the pulled city from the API data package (both the lat and the lon)
     var latitidue = data1.coord.lat;
     var longitude = data1.coord.lon;
-    var uvUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitidue + "&lon=" + longitude + "&appid=d26847a740a8421604e3803e540bf50a"
 
+    //create a dymanic URL which will make an API call to get the UV Index Data with the city's coordinates
+    var uvUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitidue + "&lon=" + longitude + "&appid=d26847a740a8421604e3803e540bf50a"
+    //using the fetch command pull the searched data "uvURL" from the open weather api.
     fetch(uvUrl)
+        //then grab the response
         .then(function (response) {
+            //if the response is okay with no issues...
             if (response.ok) {
+                //convert the response to json so javascript can use it
                 response.json()
+                    //then call the displayUVIndex function and feed it the data
                     .then(function (data1) {
                         displayUVIndex(data1);
                     });
             }
         });
+
+    //create a function that will dynamically dispay the pulled UV data from the "getUVIndex" function 
     function displayUVIndex(data1) {
+        //pull the value of the data package (this is the actual UV Index number) and assign it to a varialbe called UVIndex
         var UVIndex = data1.value;
+
+        //in the element with the class of UVReader add the UVindex as text
         UVReader.textContent = UVIndex;
+        
+        //create a dynamic dispay function to color the background of the UVReader element according tot he following logic...
+
+        //if the UV Index is between 0 and 3, color green
         if (UVIndex > 0 && UVIndex <= 2.99) {
             UVReader.setAttribute("style", "background-color: green; color: white");
+        
+        //if the UV Index is between 3 and6, color yellow
         } else if (UVIndex > 2.99 && UVIndex <= 5.99) {
             UVReader.setAttribute("style", "background-color: yellow; color: black");
+        //if the UV Index is between 6 and 8, color orange
         } else if (UVIndex > 5.99 && UVIndex <= 7.99) {
             UVReader.setAttribute("style", "background-color: darkorange; color: white");
+        //if the UV Index is between 8 and 11, color red
         } else if (UVIndex > 7.99 && UVIndex <= 10.99) {
             UVReader.setAttribute("style", "background-color: red; color: white");
         } else if (UVIndex > 10.99) {
+        //if the UV Index is anything else (basically anything over 11) color purple
             UVReader.setAttribute("style", "background-color: purple; color: white");
         }
     };
@@ -202,7 +243,10 @@ function getFiveDayForecast(cityname) {
             if (response.ok) {
                 //convert the response to json so javascript can use it
                 response.json()
-                    //then run the following two functions with the data received in the response
+                    //then add the data in each of the todayplus(x) class elements: 
+                    
+                    //the date pulled from moment (for future dates add x days per the moment instructions)
+                    //the high temp, the humidity, and the weather icon code from the data (add [X] to navigate across the data and capture the next day's data)
                     .then(function (data) {
                         if (todayplus1.imgEL) {
                             todayplus1.removeChild(imgEL);
@@ -211,7 +255,7 @@ function getFiveDayForecast(cityname) {
                         temptodayplus1.textContent = data.list[1].main.temp_max;
                         humiditytodayplus1.textContent = data.list[1].main.humidity;
                         var weatherIconCode1 = data.list[6].weather[0].icon;
-                        //add code to add pictures to class="imgtodayplus(x)" -----------
+                        //add pictures to class="imgtodayplus(x)" using the icon code dynamically
                         imgtodayplus1.setAttribute("width", "50px");
                         imgtodayplus1.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode1 + "@2x.png");
 
@@ -219,14 +263,14 @@ function getFiveDayForecast(cityname) {
                         temptodayplus2.textContent = data.list[9].main.temp_max;
                         humiditytodayplus2.textContent = data.list[9].main.humidity;
                         var weatherIconCode2 = data.list[14].weather[0].icon;
-                        //add code to add pictures to class="imgtodayplus(x)" -----------
+                        //add pictures to class="imgtodayplus(x)" using the icon code dynamically
                         imgtodayplus2.setAttribute("width", "50px");
                         imgtodayplus2.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode2 + "@2x.png");
 
                         todayplus3.textContent = moment().add(3, "days").format('l');
                         temptodayplus3.textContent = data.list[17].main.temp_max;
                         humiditytodayplus3.textContent = data.list[17].main.humidity;
-                        //add code to add pictures to class="imgtodayplus(x)" -----------
+                        //add pictures to class="imgtodayplus(x)" using the icon code dynamically
                         var weatherIconCode3 = data.list[22].weather[0].icon;
                         imgtodayplus3.setAttribute("width", "50px");
                         imgtodayplus3.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode3 + "@2x.png");
@@ -235,7 +279,7 @@ function getFiveDayForecast(cityname) {
                         temptodayplus4.textContent = data.list[25].main.temp_max;
                         humiditytodayplus4.textContent = data.list[25].main.humidity;
                         var weatherIconCode4 = data.list[30].weather[0].icon;
-                        //add code to add pictures to class="imgtodayplus(x)" -----------
+                        //add pictures to class="imgtodayplus(x)" using the icon code dynamically
                         imgtodayplus4.setAttribute("width", "50px");
                         imgtodayplus4.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode4 + "@2x.png");
 
@@ -243,11 +287,12 @@ function getFiveDayForecast(cityname) {
                         temptodayplus5.textContent = data.list[33].main.temp_max;
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
                         var weatherIconCode5 = data.list[38].weather[0].icon;
-                        //add code to add pictures to class="imgtodayplus(x)" -----------
+                        //add pictures to class="imgtodayplus(x)" using the icon code dynamically
                         imgtodayplus5.setAttribute("width", "50px");
                         imgtodayplus5.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode5 + "@2x.png");
                     });
             } else {
+                //if the response if not okay, alert with the eror
                 alert("Error: " + response.statusText);
             }
         });

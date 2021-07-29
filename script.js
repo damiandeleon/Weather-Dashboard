@@ -1,25 +1,26 @@
 
 //create get query for the city search 
-var citySearchInput = document.querySelector("#citySearchInput");
 var cityFormEl = document.querySelector("#city-form")
-var cityNameResults = document.querySelector(".cityNameResults");
-var cityTempResults = document.querySelector(".cityTempResults");
 var cityHumidityResults = document.querySelector(".cityHumidityResults");
-var cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
-var cityUVIndexResults = document.querySelector(".cityUVIndexResults");
-var UVReader = document.querySelector(".UVreader");
-var temptodayplus1 = document.querySelector("#temptodayplus1");
-var humiditytodayplus1 = document.querySelector("#humiditytodayplus1");
-var temptodayplus2 = document.querySelector("#temptodayplus2");
-var humiditytodayplus2 = document.querySelector("#humiditytodayplus2");
-var temptodayplus3 = document.querySelector("#temptodayplus3");
-var humiditytodayplus3 = document.querySelector("#humiditytodayplus3");
-var temptodayplus4 = document.querySelector("#temptodayplus4");
-var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
-var temptodayplus5 = document.querySelector("#temptodayplus5");
-var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
+var cityNameResults = document.querySelector(".cityNameResults");
 var cityNameSearchItem = document.querySelector(".cityNameSearchItem");
+var citySearchInput = document.querySelector("#citySearchInput");
+var cityTempResults = document.querySelector(".cityTempResults");
+var cityUVIndexResults = document.querySelector(".cityUVIndexResults");
+var cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
+var humiditytodayplus1 = document.querySelector("#humiditytodayplus1");
+var humiditytodayplus2 = document.querySelector("#humiditytodayplus2");
+var humiditytodayplus3 = document.querySelector("#humiditytodayplus3");
+var humiditytodayplus4 = document.querySelector("#humiditytodayplus4");
+var humiditytodayplus5 = document.querySelector("#humiditytodayplus5");
 var lastStorageIndex = localStorage.length;
+var temptodayplus1 = document.querySelector("#temptodayplus1");
+var temptodayplus2 = document.querySelector("#temptodayplus2");
+var temptodayplus3 = document.querySelector("#temptodayplus3");
+var temptodayplus4 = document.querySelector("#temptodayplus4");
+var temptodayplus5 = document.querySelector("#temptodayplus5");
+var UVReader = document.querySelector(".UVreader");
+//create var cityList after var lastStorageIndex has been created
 var cityList = lastStorageIndex;
 
 //create a function that renders the last city previously searched and saved in local Storage.  If local storage is empty, Welcome the user and prompt to start by entering in their first search.  The variable "lastStorageIndex" will be a number equal to the length of the local storage (if three cities have been previously searched, then the value will be 3, if six cities then it will be 6, and so on...)
@@ -63,13 +64,23 @@ function pullLastSearch (lastCity){
 }
 
 //got this from "https://www.youtube.com/watch?v=RbfG7NLKDgQ" How to store A JavaScript Array in Local Storage
+//create a function to save the searched city in local storage
 function saveLocalStorage(city) {
+    //add a new index number to local storage
     cityList++;
+    //set the local storage items with the following parameters(the new cityList index number, and the city searched)
     localStorage.setItem(cityList, city);
+    //create a new line element called "liEl"
     var liEl = document.createElement("li");
+    //set liEl attribute to add a class called "list-group-item itemPlace"
     liEl.setAttribute("class", "list-group-item itemPlace");
+    //set liEl attribute to add a value with the city's name.  This will be used to tell the search button what to look for from the previous searched list.
+    liEl.setAttribute("value", city);
+    //add the name of city parameter as text to the line item
     liEl.textContent = city;
+    //Append the newly created line Element to the element with the class of "cityNameSearchItem"
     cityNameSearchItem.appendChild(liEl);
+    //return the new cityList
     return cityList
 }
 // create form submit handler function
@@ -78,7 +89,7 @@ var cityFormSubmitHandler = function (event) {
     event.preventDefault();
     //assign a variable named cityname to the value of the event search, and trim out the whitespace.
     var cityname = citySearchInput.value.trim();
-    //if the event has a search data to pull (assinged to the "cityname" variable), run three functions 1. Get the City Weather, 2. Get the five day forecast for the searched city. 3. and save the searched city in local storage.  If the search is empty then alert the user to please enter a city before searching.
+    //if the event has a search data to pull (assinged to the "cityname" variable), run three functions 1. Get the City Weather, 2. Get the five day forecast for the searched city. 3. and save the searched city in local storage.  If the search is empty then alert the user to please enter a city before searching (see line 102)
     if (cityname) {
         //run getCityWeather function with the cityname search paramter
         getCityWeather(cityname);
@@ -109,7 +120,7 @@ function getCityWeather(city) {
             if (response.ok) {
                 //convert the response to json so javascript can use it
                 response.json()
-                    //then fun the following two functionw with the data received in the response
+                    //then run the following two functions with the data received in the response
                     .then(function (data) {
                         //launch the displayWeather function with the data parameters
                         displayWeather(data)
@@ -122,19 +133,30 @@ function getCityWeather(city) {
         });
 }
 
-//create function to actually display weather into a user friendly presentation from the API code.  **** Call the funciton displayWeather() *****
+//create function to display current weather into a user friendly presentation from the API code.  **** Call the funciton displayWeather() *****
 
 function displayWeather(data) {
+    //create a variable to capture the current weather icon code from the API data
     var weatherIconCode = data.weather[0].icon;
+    //create an img element 
     var addIcon = document.createElement("img");
+    //set addIcon img element to 50px width
     addIcon.setAttribute("width", "50px");
+    //call the API to display the icon corresponding to the current weather code
     addIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode + "@2x.png");
+    //in the section with class of "cityNameResults", append the newly created icon
     cityNameResults.append(addIcon);
+    //create a variable to capture the current temp from the API data
     var temperature = data.main.temp;
+    //in the section with the class of "cityNameResults", add text to dynamically display the current temp pulled from the data.
     cityTempResults.textContent = "Temperature: " + temperature + " ° F";
+    //create a variable to capture the current humidity from the API data
     var humidity = data.main.humidity;
+    //in the section with the class of "cityNameResults", add text to dynamically display the current humidity pulled from the data.
     cityHumidityResults.textContent = "Humidity: " + humidity + "%";
+    //create a variable to capture the current wind speed from the API data
     windSpeed = data.wind.speed;
+    //in the section with the class of "cityNameResults", add text to dynamically display the current wind speed pulled from the data.
     cityWindSpeedResults.textContent = "Wind Speed: " + windSpeed + " MPH";
 };
 
@@ -168,13 +190,19 @@ function getUVIndex(data1) {
         }
     };
 }
+//create function to pull the five day forecast from the five day forecast API link for the city (cityname) fed by the cityFormSubmitHandler function
 function getFiveDayForecast(cityname) {
+    //create a new variable called "fiveDayURL" with the search url that can dynamically search for the city name fed into the function parameter
     var fiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
-
+   //using the fetch command (Fetch API sets up a request to capture data from a url and will then use the .then promise to do something with that data) pull the searched data "fiveDayUrl" from the open weather api. 
     fetch(fiveDayUrl)
+        //then grab the response
         .then(function (response) {
+            //if the repnose is okay with no issues
             if (response.ok) {
+                //convert the response to json so javascript can use it
                 response.json()
+                    //then run the following two functions with the data received in the response
                     .then(function (data) {
                         if (todayplus1.imgEL) {
                             todayplus1.removeChild(imgEL);

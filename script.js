@@ -8,6 +8,7 @@ var citySearchInput = document.querySelector("#citySearchInput");
 var cityTempResults = document.querySelector(".cityTempResults");
 var cityUVIndexResults = document.querySelector(".cityUVIndexResults");
 var cityWindSpeedResults = document.querySelector(".cityWindSpeedResults");
+var clearButton = document.querySelector(".clearButton");
 var humiditytodayplus1 = document.querySelector("#humiditytodayplus1");
 var humiditytodayplus2 = document.querySelector("#humiditytodayplus2");
 var humiditytodayplus3 = document.querySelector("#humiditytodayplus3");
@@ -302,4 +303,10 @@ function getFiveDayForecast(cityname) {
 
 //create city search event listener
 cityFormEl.addEventListener('submit', cityFormSubmitHandler);
+
+//create clearButton event listener
+clearButton.addEventListener('click', function(){
+    localStorage.clear();
+    location.reload();
+})
 

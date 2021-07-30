@@ -65,3 +65,12 @@ footer{
     font-size: 25px;
     text-emphasis:bold;
 }
+
+.searchHistory{
+    text-align: center;
+}
+
+.clearButton{
+    margin-top: auto;
+    margin-bottom: 10px;
+}

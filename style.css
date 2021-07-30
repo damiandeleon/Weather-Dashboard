@@ -48,8 +48,8 @@ footer{
     background-color:#3f89f8; 
     color: whitesmoke; 
     border-radius: 5px; 
-    padding-left: 6px;
-    padding-right: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .fiveDayBlock{
@@ -73,4 +73,9 @@ footer{
 .clearButton{
     margin-top: auto;
     margin-bottom: 10px;
+}
+
+.UVMessage{
+    font-size: small;
+    margin-left: 5px;
 }

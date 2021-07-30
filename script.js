@@ -20,30 +20,34 @@ var temptodayplus2 = document.querySelector("#temptodayplus2");
 var temptodayplus3 = document.querySelector("#temptodayplus3");
 var temptodayplus4 = document.querySelector("#temptodayplus4");
 var temptodayplus5 = document.querySelector("#temptodayplus5");
+var UVMessage = document.querySelector(".UVMessage");
 var UVReader = document.querySelector(".UVreader");
 //create var cityList after var lastStorageIndex has been created
 var cityList = lastStorageIndex;
 
 //create a function that renders the last city previously searched and saved in local Storage.  If local storage is empty, Welcome the user and prompt to start by entering in their first search.  The variable "lastStorageIndex" will be a number equal to the length of the local storage (if three cities have been previously searched, then the value will be 3, if six cities then it will be 6, and so on...)
+
+
+
 renderLocalStorage();
 function renderLocalStorage() {
-    //if the last local storage index is not empty, then get the item in local storage.  If it is empty it will alert with a greeting (see line 41)
-    if(lastStorageIndex!=0){
+    //if the last local storage index is not empty, then get the item in local storage.  If it is empty it will alert with a greeting (see line 47)
+    if (lastStorageIndex != 0) {
         //create a variable called lastCity to assign to the last indexed city in local storage
         var lastCity = localStorage.getItem(lastStorageIndex)
         //funciton to pull the last searched city
         pullLastSearch(lastCity);
         //call the last index of the local storage, which will be highest indexed number in the local storage.  For loop will cycle through the index until it reaches the number currently assigned to the variable "lastSotrageIndex", which equals the length of the local storage (see line 16).
-        for(let i = 1; i <= lastStorageIndex; i++){
+        for (let i = 1; i <= lastStorageIndex; i++) {
             var city = localStorage.getItem(i);
             //launch setLastSearchEl to display the listing of previously searched cities from local storage
             setLastSearchEl(city)
         }
-    } else {alert("Welcome to your Weather Dashboard.  Start by entering your first search!")}
+    } else { alert("Welcome to your Weather Dashboard.  Start by entering your first search!") }
 }
 
 //display the listing of previously search cities from local storage (parameter of "city" is fed from the "setLastSearchEl(city) function on line 39")
-function setLastSearchEl(city){
+function setLastSearchEl(city) {
     //create a new line element called "liEl"
     var liEl = document.createElement("li");
     //set liEl attribute to add a class called "list-group-item itemPlace"
@@ -53,14 +57,16 @@ function setLastSearchEl(city){
     //add the name of city parameter as text to the line item
     liEl.textContent = city;
     //add event listener that when clicked, will pull for the city assigned to the element
-    liEl.addEventListener("click", function() {
+    liEl.addEventListener("click", function () {
         pullLastSearch(city)
     })
     //Append the newly created line Element to the element with the class of "cityNameSearchItem"
     cityNameSearchItem.appendChild(liEl);
 }
 
-function pullLastSearch (lastCity){
+//funciton to begin the process of pulling the Last Serached Item, and then populate the page with the info
+function pullLastSearch(lastCity) {
+    //launch the getCityWeather function and the getFiveDayForecast function with the name returned in "lastCity"
     getCityWeather(lastCity);
     getFiveDayForecast(lastCity);
 
@@ -71,12 +77,8 @@ function pullLastSearch (lastCity){
     //...reset the field with the id "citySearchInput" back to empty
     citySearchInput.value = '';
 
-    //...set the page section with the
-    // cityList.value = lastCity;
-
 }
 
-//got this from "https://www.youtube.com/watch?v=RbfG7NLKDgQ" How to store A JavaScript Array in Local Storage
 //create a function to save the searched city in local storage
 function saveLocalStorage(city) {
     //add a new index number to local storage
@@ -92,7 +94,7 @@ function saveLocalStorage(city) {
     //add the name of city parameter as text to the line item
     liEl.textContent = city;
     //add event listener that when clicked, will pull for the city assigned to the element
-    liEl.addEventListener("click", function() {
+    liEl.addEventListener("click", function () {
         pullLastSearch(city)
     })
 
@@ -107,8 +109,34 @@ var cityFormSubmitHandler = function (event) {
     event.preventDefault();
     //assign a variable named cityname to the value of the event search, and trim out the whitespace.
     var cityname = citySearchInput.value.trim();
-    //if the event has a search data to pull (assinged to the "cityname" variable), run three functions 1. Get the City Weather, 2. Get the five day forecast for the searched city. 3. and save the searched city in local storage.  If the search is empty then alert the user to please enter a city before searching (see line 102)
+
+    //before running the call to the API, run two checks.  First, check if the user put anything in the search field
     if (cityname) {
+        //if search field data exists, run second check to see if the cityname already exists within the search history to prevent redundant checks.
+
+        //create a local Storage Array to be used to store local storage list
+        let localStorageArr = [];
+        //loop through the local storage
+        for (let i = 0; i <= lastStorageIndex; i++) {
+            //each pass will push the value of each storage key to the localStorageArr
+            localStorageArr.push(window.localStorage.getItem([i]));
+        }
+        //if the newly rendered localStorageArr contains the city being searched already (cityname) it will alert that the city already exists in the search history.  
+        if (localStorageArr.includes(cityname)) {
+            alert("City has been searched before and can be accessed by clicking inside the search history");
+            citySearchInput.value = '';
+        } else {
+
+            //if second check psses, then continue to run an API call for the cityname
+            pulllWeatherPackage(cityname);
+            location.reload();
+        }
+    } else {
+        alert('Please enter a city name before searching');
+    };
+
+    //create a function "pullWeatherPackage", which will 1. Get the City Weather, 2. Get the five day forecast for the searched city. 3. and save the searched city in local storage. 
+    function pulllWeatherPackage(cityname) {
         //run getCityWeather function with the cityname search paramter
         getCityWeather(cityname);
         //run getFiveDayForecast function with the cityname search paramter
@@ -116,15 +144,12 @@ var cityFormSubmitHandler = function (event) {
         //run saveLocalStorage function with the cityname search paramter
         saveLocalStorage(cityname);
 
-        cityNameResults.textContent = cityname + "  (" + moment().format('l') + ")";
         citySearchInput.value = '';
         cityList.value = cityname;
-    } else {
-        alert('Please enter a city name before searching');
-    }
 
-};
 
+    };
+}
 
 // create function that will insert the city search into the API search dynamically
 function getCityWeather(city) {
@@ -181,7 +206,7 @@ function displayWeather(data) {
 
 //create a function to capture the UV index from the API response package in the "getCityWeather" function
 function getUVIndex(data1) {
-    
+
     //to ensure the accurate UV index is pulled, get the coordinates of the pulled city from the API data package (both the lat and the lon)
     var latitidue = data1.coord.lat;
     var longitude = data1.coord.lon;
@@ -210,25 +235,30 @@ function getUVIndex(data1) {
 
         //in the element with the class of UVReader add the UVindex as text
         UVReader.textContent = UVIndex;
-        
+
         //create a dynamic dispay function to color the background of the UVReader element according tot he following logic...
 
         //if the UV Index is between 0 and 3, color green
         if (UVIndex > 0 && UVIndex <= 2.99) {
             UVReader.setAttribute("style", "background-color: green; color: white");
-        
-        //if the UV Index is between 3 and6, color yellow
+            UVMessage.textContent = "No skin protection required"
+
+            //if the UV Index is between 3 and6, color yellow
         } else if (UVIndex > 2.99 && UVIndex <= 5.99) {
             UVReader.setAttribute("style", "background-color: yellow; color: black");
-        //if the UV Index is between 6 and 8, color orange
+            UVMessage.textContent = "Skin protection required"
+            //if the UV Index is between 6 and 8, color orange
         } else if (UVIndex > 5.99 && UVIndex <= 7.99) {
             UVReader.setAttribute("style", "background-color: darkorange; color: white");
-        //if the UV Index is between 8 and 11, color red
+            UVMessage.textContent = "Skin protection required"
+            //if the UV Index is between 8 and 11, color red
         } else if (UVIndex > 7.99 && UVIndex <= 10.99) {
             UVReader.setAttribute("style", "background-color: red; color: white");
+            UVMessage.textContent = "Extra skin protection required"
         } else if (UVIndex > 10.99) {
-        //if the UV Index is anything else (basically anything over 11) color purple
+            //if the UV Index is anything else (basically anything over 11) color purple
             UVReader.setAttribute("style", "background-color: purple; color: white");
+            UVMessage.textContent = "Extra skin protection required"
         }
     };
 }
@@ -236,7 +266,7 @@ function getUVIndex(data1) {
 function getFiveDayForecast(cityname) {
     //create a new variable called "fiveDayURL" with the search url that can dynamically search for the city name fed into the function parameter
     var fiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperial&appid=d26847a740a8421604e3803e540bf50a"
-   //using the fetch command (Fetch API sets up a request to capture data from a url and will then use the .then promise to do something with that data) pull the searched data "fiveDayUrl" from the open weather api. 
+    //using the fetch command (Fetch API sets up a request to capture data from a url and will then use the .then promise to do something with that data) pull the searched data "fiveDayUrl" from the open weather api. 
     fetch(fiveDayUrl)
         //then grab the response
         .then(function (response) {
@@ -245,13 +275,14 @@ function getFiveDayForecast(cityname) {
                 //convert the response to json so javascript can use it
                 response.json()
                     //then add the data in each of the todayplus(x) class elements: 
-                    
+
                     //the date pulled from moment (for future dates add x days per the moment instructions)
                     //the high temp, the humidity, and the weather icon code from the data (add [X] to navigate across the data and capture the next day's data)
                     .then(function (data) {
                         if (todayplus1.imgEL) {
                             todayplus1.removeChild(imgEL);
                         }
+                        todayplus1Name.textContent = data.city.name;
                         todayplus1.textContent = moment().add(1, "days").format('l');
                         temptodayplus1.textContent = data.list[1].main.temp_max;
                         humiditytodayplus1.textContent = data.list[1].main.humidity;
@@ -260,6 +291,7 @@ function getFiveDayForecast(cityname) {
                         imgtodayplus1.setAttribute("width", "50px");
                         imgtodayplus1.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode1 + "@2x.png");
 
+                        todayplus2Name.textContent = data.city.name;
                         todayplus2.textContent = moment().add(2, "days").format('l');
                         temptodayplus2.textContent = data.list[9].main.temp_max;
                         humiditytodayplus2.textContent = data.list[9].main.humidity;
@@ -268,6 +300,7 @@ function getFiveDayForecast(cityname) {
                         imgtodayplus2.setAttribute("width", "50px");
                         imgtodayplus2.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode2 + "@2x.png");
 
+                        todayplus3Name.textContent = data.city.name;
                         todayplus3.textContent = moment().add(3, "days").format('l');
                         temptodayplus3.textContent = data.list[17].main.temp_max;
                         humiditytodayplus3.textContent = data.list[17].main.humidity;
@@ -276,6 +309,7 @@ function getFiveDayForecast(cityname) {
                         imgtodayplus3.setAttribute("width", "50px");
                         imgtodayplus3.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode3 + "@2x.png");
 
+                        todayplus4Name.textContent = data.city.name;
                         todayplus4.textContent = moment().add(4, "days").format('l');
                         temptodayplus4.textContent = data.list[25].main.temp_max;
                         humiditytodayplus4.textContent = data.list[25].main.humidity;
@@ -284,6 +318,7 @@ function getFiveDayForecast(cityname) {
                         imgtodayplus4.setAttribute("width", "50px");
                         imgtodayplus4.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconCode4 + "@2x.png");
 
+                        todayplus5Name.textContent = data.city.name;
                         todayplus5.textContent = moment().add(5, "days").format('l');
                         temptodayplus5.textContent = data.list[33].main.temp_max;
                         humiditytodayplus5.textContent = data.list[33].main.humidity;
@@ -305,7 +340,7 @@ function getFiveDayForecast(cityname) {
 cityFormEl.addEventListener('submit', cityFormSubmitHandler);
 
 //create clearButton event listener
-clearButton.addEventListener('click', function(){
+clearButton.addEventListener('click', function () {
     localStorage.clear();
     location.reload();
 })
